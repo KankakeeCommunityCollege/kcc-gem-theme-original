@@ -19,14 +19,13 @@
   {{ content }}
   {% include footer.html %}
   {% include scripts/vendor-cdn.html %}
-  {% include scripts/kcc-nav.html %}
   {% include scripts/kcc-theme.html %}
-  {% include scripts/emergency-alerts.html %}
   {% include scripts/google-api.html %}
   {% if page.sheet_key %}
   {% include scripts/table-cdn.html %}
   {% endif %}
   {% include scripts/custom.html %}
   {% if site.translate == true %}<!-- Link to this site's custom google translate stylesheet -->
-  {% include scripts/translate.html %}{% endif %}
+  {% include scripts/translate.html %}
+  {% endif %}
 {% include foot.html %}
