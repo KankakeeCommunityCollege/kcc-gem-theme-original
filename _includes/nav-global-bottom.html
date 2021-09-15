@@ -1,0 +1,44 @@
+          <ul id="navGlobalBottom" class="navbar-nav header-global__nav-bottom justify-content-end header-global__navbar-nav--divider">
+            {% for item in site.data.navigation %}
+            <li data-nav="{% if item.link_nav %}{{ item.link_nav }}{% else %}{{ item.link_text | downcase | replace: ' ', '-' | replace: '&', 'and' }}{% endif %}" class="nav-item dropdown header-global__dropdown header-global__dropdown--position">
+              <a href="#"
+                id="{{ item.link_text | downcase | replace: ' ', '-' | replace: '&', 'and' }}-dropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                class="nav-link dropdown-toggle header-global__nav-bottom--nav-link typography__nowrap--sm typography__header-global--nav-bottom">
+                {{ item.link_text }}
+              </a>
+              <div class="dropdown-menu header-global__dropdown-menu--full-width py-3 px-3 px-lg-5"
+                aria-labelledby="{{ item.link_text | downcase | replace: ' ', '-' | replace: '&', 'and' }}-dropdown">
+                <div class="container">
+                  <div class="row header-global__row--max-width">
+                    {%- if item.image -%}
+                    <div class="col-lg-3 offset-lg-1 padding__col--mobile-none">
+                      <img src="{{ page.baseurl }}assets/img/placeholder_16to9.jpg"
+                        data-src="{{ page.baseurl }}{{ item.image.source }}"
+                        width="280px"
+                        height="157px"
+                        class="header-global__drodpown-menu--img img-fluid d-none d-lg-block"
+                        alt="{{ item.image.alt }}">
+                    </div>{% endif %}
+                    <div class="col-lg-8 col-xl-7 offset-xl-1{% if item.link_text == 'Student Resources' or item.link_text == 'About KCC' %} header-global__col--column-count{% endif %}">
+                      {%- if item.link_href -%}
+                      {% assign site_name_lowercase = site.site_name | downcase | replace: ' ', '-' | replace: '&', 'and' %}
+                      <a class="dropdown-item" href="{% if item.link_href contains site_name_lowercase %}{{ page.baseurl }}{% else %}/{{ item.link_href }}{% endif %}">{{ item.link_text }}</a>
+                      {%- endif -%}
+                      {% assign alphabetical_links = item.dropdown | sort: "text" %}
+                      {% for link in alphabetical_links %}
+                      {% if item.link_href contains site_name_lowercase %}
+                      <a class="dropdown-item" href="{% if link.href contains 'http://' or link.href contains 'https://' %}{{ link.href }}{% else %}{{ page.baseurl }}{{ link.href }}{% endif %}">{{ link.text }}</a>
+                      {%- else -%}
+                      <a class="dropdown-item" href="{% if link.href contains 'http://' or link.href contains 'https://' %}{{ link.href }}{% else %}/{{ item.link_href }}/{{ link.href }}{% endif %}">{{ link.text }}</a>
+                      {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>{% endfor %}
+          </ul>

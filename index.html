@@ -1,0 +1,137 @@
+---
+layout: default
+homepage: true
+baseurl: '/'
+title: KCC Gem Theme
+description: ''
+yt_embed: https://youtu.be/LUCrx9chw-c
+slides:
+  - image: assets/img/kcc-placeholder.png
+    alt-text: The Power of Community
+    url: 'https://continuinged.kcc.edu'
+    text: The **POWER** of Absolute Links
+  - image: assets/img/kcc-placeholder.png
+    alt-text: The Power of Education
+    url: 'landing-page'
+  - image: assets/img/kcc-placeholder.png
+    alt-text: The Power of Giving
+    url: '/landing-page'
+    text: The **POWER** of Relative Links w/ baseurl
+    white_background: true
+  - image: assets/img/kcc-placeholder.png
+    alt-text: The Power of Giving
+    url: 'https://continuinged.kcc.edu'
+    text: The **POWER** of Community
+card_section: Card Section Name
+cards:
+  - name: Card Name
+    description: "In ultricies, nunc et interdum lobortis, turpis odio dignissim leo, nec sagittis dui leo id turpis. Aliquam erat volutpat. Cras enim felis, auctor et ex at, bibendum molestie libero. Donec non velit mi."
+    button_text: Learn More
+    link: #
+    thumb: assets/img/kcc-placeholder-square.png
+    thumb_alt_text: ''
+  - name: Card Name
+    description: "Etiam mattis ligula vel augue dictum tempor. Donec at aliquet magna, ut tempor turpis. Praesent congue nulla ut nisl malesuada accumsan. Donec eget eros sed risus efficitur sodales faucibus ut tortor."
+    button_text: Learn More
+    link: #
+    thumb: assets/img/kcc-placeholder-square.png
+    thumb_alt_text: ''
+  - name: Card Name
+    description: "Duis convallis volutpat dictum. Aliquam hendrerit ipsum quis tortor convallis, non aliquet enim fermentum. Praesent nec ligula sed magna molestie volutpat."
+    button_text: Learn More
+    link: #
+    thumb: assets/img/kcc-placeholder-square.png
+    thumb_alt_text: ''
+---
+
+<main>
+  <div class="container background__color--tan">
+    {% include hero-slider.html %}
+  </div>
+  {% include card-section.html %}
+  <div class="container">
+    <div class="row">
+      <div class="col margins__col--top section__heading-underline--transparent">
+        <h3 class="typography__section--heading margins__heading--btm">Announcements</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h3 class="typography__h3">Example Anouncement Title</h3>
+        <p>Example anouncement text.</p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <br>
+        <h2 class="typography__h2">Welcome to the KCC gem-based theme project!</h2>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col margins__col--top home__col--heading-underline">
+        <h3 class="typography__section--heading margins__heading--btm">Section Heading</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h1 class="typography__nav-heading">Heading Level 1</h1>
+        <h2 class="typography__h2">Heading Level 2</h2>
+        <h3 class="typography__h3">Heading Level 3</h3>
+        <h4 class="typography__h4">Heading Level 4</h4>
+        <h5 class="typography__h5">Heading Level 5</h5>
+        <h6 class="typography__h6">Heading Level 6</h6>
+        <p>Paragraph text</p>
+        <ul>
+          <li>Unordered List</li>
+          <li>Unordered List</li>
+          <li>Unordered List</li>
+        </ul>
+        <ol>
+          <li>Ordered List</li>
+          <li>Ordered List</li>
+          <li>Ordered List</li>
+        </ol>
+        <table class="tables typography__tables">
+          <thead>
+            <tr>
+              <th>Table Heading</th>
+              <th>Table Heading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Data</td>
+              <td>Data</td>
+            </tr>
+            <tr>
+              <td>Data</td>
+              <td>Data</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        View an example <a href="{{ page.baseurl }}landing-page/" class="btn btn-primary">Landing Page</a>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <a href=""><img src="{{ page.baseurl }}assets/img/kcc-placeholder.png" data-src="{{ page.baseurl }}assets/img/itransfer.png" alt="Some alt text." /></a>
+      </div>
+    </div>
+  </div>
+  {% comment %}{% include contacts.html %}{% endcomment %}
+</main>
+
+<section class="mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+
+      </div>
+    </div>
+  </div>
+</section>

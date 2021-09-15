@@ -1,0 +1,84 @@
+{
+  "name": "kcc-gem-theme",
+  "version": "2.0.0",
+  "description": "",
+  "private": true,
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "usage",
+          "corejs": {
+            "version": 3,
+            "proposals": true
+          }
+        }
+      ]
+    ]
+  },
+  "browserslist": [
+    "defaults",
+    "ie >=11",
+    "not ie <= 8",
+    "not ie_mob <= 8"
+  ],
+  "scripts": {
+    "watch": "gulp",
+    "production": "run-p gulp-sequence-production webpack-production",
+    "gulp-production": "gulp --production",
+    "gulp-dev": "gulp",
+    "webpack-production": "npx webpack --mode=production",
+    "webpack-dev": "npx webpack --mode=development",
+    "gulp-wait": "sleep 1",
+    "gulp-sequence-production": "run-s gulp-wait gulp-production",
+    "gulp-sequence-dev": "run-s gulp-wait gulp-dev",
+    "dev": "run-p gulp-sequence-dev webpack-dev",
+    "build": "gulp build"
+  },
+  "author": "https://github.com/wdzajicek",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-loader": "^8.1.0",
+    "browser-sync": "^2.26.14",
+    "clean-webpack-plugin": "^3.0.0",
+    "cross-spawn": "^7.0.2",
+    "cssnano": "^4.1.10",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-hashsum": "^1.2.0",
+    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-postcss": "^9.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "hash-webpack-plugin": "0.0.5",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.4",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "yargs": "^15.3.1"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "regenerator-runtime": "^0.13.5"
+  },
+  "comments": {
+    "babel": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": "Set 'useBuiltIns': 'usage' for polyfilling es6 only by what is used and according to the browserlist settings.",
+            "debug": "Set 'debug': true, to see verbose '@babel/preset-env' output at terminal."
+          }
+        ]
+      ]
+    },
+    "browserslist": "Sets compatibility for JS polyfilling and CSS autoprefixing. IF YOU CHANGE BROWSERLIST SETTINGS, you must kill the build if its running (control + c), and restart the build to see changes!"
+  }
+}

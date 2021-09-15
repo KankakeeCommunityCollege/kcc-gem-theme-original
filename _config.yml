@@ -1,0 +1,110 @@
+title: "KCC"
+site_name: KCC Gem Theme
+public-url: "http://www.kcc.edu"
+url: 'URL is needed for robots.txt to work properly' ## NO TRAILING SLASHES!!/<--nope
+timezone: America/Chicago
+google-tag_key: Google Tag Manager key goes here
+core_site: true
+#translate: true ## Uncomment to activate Google Translate Powers (unfortunately no cowpowers)!!
+nav_config:
+  smaller_brand: true
+nav_links:
+  - link_text: Home
+    link_href: ''
+    button: false
+  - link_text: Landing Page
+    link_href: 'landing-page'
+    button: false
+  - link_text: accordion
+    link_href: 'accordion'
+    button: false
+  - link_text: Tabbed Navigation
+    link_href: 'tabbed-nav'
+    button: false
+  - link_text: Enroll
+    dropdown:
+      - text: Community Literacy
+        href: 'programs/community-literacy'
+      - text: English as a Second Language
+        href: 'programs/esl'
+      - text: GED/High School Equivalency
+        href: 'programs/ged'
+#  - link_text: Example External Link
+#    link_href: 'https://example-external-link.com'
+#    button: false
+#    external: true  <---- #### Add the `external: true` key & value to make an external link ####
+#
+#### Example sub-nav configuration below #### =============================================================== #
+##                                                                                                           ##
+##   `link_href:` values must have a single '/' in the link (no '/' in the begining or end of the string)    ##
+##                                                                                                           ##
+## ========================================================================================================== #
+#
+#sub-nav_links:
+#  - link_text: Sheets
+#    link_href: 'reference/gsheets'
+#  - link_text: CloudCannon
+#    link_href: 'reference/cloudcannon'
+#
+collections:
+  tabs:
+    output: false
+  accordions:
+    output: false
+  contacts:
+    output: false
+defaults:
+- scope:
+    path: ''
+    type: posts
+  values:
+    layout: post
+    title: ''
+    permalink: /:categories/:title/
+    baseurl: ../../../
+    categories: news
+permalink: pretty
+description: > # this means to ignore newlines until "baseurl:"
+# Delete this comment and place description on this line
+baseurl: "" # the subpath of your site, e.g. /blog
+#include:
+#  - "_pages"
+#   - "_posts"
+
+# include future posts? (true or false)
+future: true
+# Build settings
+markdown: kramdown
+
+include:
+  - "_accordions/"
+  - "_tabs/"
+
+exclude:
+  - "gulpfile.js"
+  - "node_modules"
+  - "npm-debug.log"
+  - "package.json"
+  - "package-lock.json"
+  - "README.md"
+  - "Gemfile"
+  - "Gemfile.lock"
+  - "gulpconfig.yml"
+  - "LICENSE.txt"
+  - "webpack.config.js"
+  - "*.gem"
+  - "*.gemspec"
+  - "gulp-tasks/"
+  - "install.sh"
+  - "ruby-version.txt"
+
+uploads_dir: # specifies the default uploads directory for CloudCannon
+  - "uploads/"
+
+_comments:
+  layout: Do NOT modify layouts. It may break things.
+  baseurl: Do NOT modify baseurl. It WILL break all page links.
+  categories: "FOR CATEGORIES <br/>SPORTS-SPECIFIC: <br/>1.) First enter the sport's category from this list <br/>2.) followed by the \"news\" category. <br/>(e.g. mens-basketball news) <br/>GENERAL NEWS: <br/>1.) Enter \"news\" category first <br/>2.) followed by the \"general\" category. <br/>(e.g. news general)"
+  sport_category: Sport for which news item pertains. Gets pulled into news rollup.
+  news_thumb_image: Must be 16:9 ratio image. Preferably 200px wide.
+  description: "Descriptions are seen by search engines like Google and displayed in search results"
