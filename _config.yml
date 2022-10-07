@@ -6,7 +6,6 @@ timezone: America/Chicago
 port: 3000
 google-tag_key: Google Tag Manager key goes here
 theme_config: true
-core_site: true
 #translate: true ## Uncomment to activate Google Translate Powers (unfortunately no cowpowers)!!
 nav_config:
   smaller_brand: true
@@ -104,7 +103,4 @@ uploads_dir: # specifies the default uploads directory for CloudCannon
 _comments:
   layout: Do NOT modify layouts. It may break things.
   baseurl: Do NOT modify baseurl. It WILL break all page links.
-  categories: "FOR CATEGORIES <br/>SPORTS-SPECIFIC: <br/>1.) First enter the sport's category from this list <br/>2.) followed by the \"news\" category. <br/>(e.g. mens-basketball news) <br/>GENERAL NEWS: <br/>1.) Enter \"news\" category first <br/>2.) followed by the \"general\" category. <br/>(e.g. news general)"
-  sport_category: Sport for which news item pertains. Gets pulled into news rollup.
-  news_thumb_image: Must be 16:9 ratio image. Preferably 200px wide.
   description: "Descriptions are seen by search engines like Google and displayed in search results"
