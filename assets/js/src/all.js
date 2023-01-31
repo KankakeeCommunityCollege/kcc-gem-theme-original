@@ -23,7 +23,7 @@ window.addEventListener('load', () => {
     })
   }
 
-  import('../nav/nav/nav').then(({ default: nav }) => nav())
+  import('../nav/nav').then(({ default: nav }) => nav())
 
   if (document.querySelector('.hero-slider__slider')) {
     import('./wrapPowerText')
@@ -37,7 +37,10 @@ window.addEventListener('load', () => {
     import('./lazyLoad').then(({ default: lazyLoad }) => lazyLoad());
   }
 
-  import('./footerDate').then(({ default: footerDate }) => footerDate());
+  if (document.getElementById('currentYear')) {
+    import('./footerDate')
+      .then(({ default: footerDate }) => footerDate());
+  }
 
   import('./walkText').then(({default: walkText}) => walkText(document.body));
 

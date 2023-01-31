@@ -27,7 +27,7 @@ module.exports = {
     filename: '[name].[fullhash].bundle.js',
     path: path.resolve(__dirname, 'assets', 'js', 'dist'),
     // `publicPath` tells webpack where to look for modules on the server
-    publicPath: '../assets/js/dist/',
+    publicPath: 'auto',
     clean: true,
   },
   module: {
