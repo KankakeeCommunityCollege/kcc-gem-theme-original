@@ -6,7 +6,7 @@ timezone: America/Chicago
 port: 3000
 google-tag_key: Google Tag Manager key goes here
 theme_config: true
-#translate: true ## Uncomment to activate Google Translate Powers (unfortunately no cowpowers)!!
+translate: true ## Uncomment to activate Google Translate Powers (unfortunately no cowpowers)!!
 nav_config:
   smaller_brand: true
 nav_links:

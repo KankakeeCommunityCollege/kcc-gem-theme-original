@@ -16,14 +16,14 @@ window.addEventListener('load', () => {
   import('./alerts').then(({ default: alerts }) => alerts());
 
   import('./addClassToOpenNavbar').then(({ default: addClassToOpenNavbar }) => addClassToOpenNavbar());
-  
+
+  import('../nav/nav').then(({ default: nav }) => nav());
+
   if (document.getElementById('google_translate_element')) {
     import('../../scss/translate.scss').then(() => {
-      import('./translate').then(({ default: watchForMenuClicks }) => watchForMenuClicks());
+      import('./translate').then(({ default: translate }) => translate());
     })
   }
-
-  import('../nav/nav').then(({ default: nav }) => nav())
 
   if (document.querySelector('.hero-slider__slider')) {
     import('./wrapPowerText')
