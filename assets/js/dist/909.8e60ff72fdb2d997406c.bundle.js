@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkkcc_gem_theme=self.webpackChunkkcc_gem_theme||[]).push([[909],{6909:function(e,n,t){t.r(n);var c=document.getElementById("currentYear");n.default=function(){var e=(new Date).getFullYear();c.innerHTML!=="".concat(e)&&(c.innerHTML=e)}}}]);
