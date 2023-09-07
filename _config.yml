@@ -1,6 +1,6 @@
 title: "KCC"
 site_name: KCC Gem Theme
-public-url: "http://www.kcc.edu"
+public-url: "https://www.kcc.edu"
 url: 'URL is needed for robots.txt to work properly' ## NO TRAILING SLASHES!!/<--nope
 timezone: America/Chicago
 port: 3000
@@ -63,7 +63,8 @@ defaults:
     title: ''
     permalink: /:categories/:title/
     baseurl: ../../../
-    categories: news
+    categories: 
+    - news
 permalink: pretty
 description: > # this means to ignore newlines until "baseurl:"
 # Delete this comment and place description on this line
