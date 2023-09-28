@@ -4,9 +4,9 @@
   margin-top: 20px;
 }
 
-
 .footer {
   background-color: $grey-4;
+  margin-bottom: -56px;
   margin-top: 60px;
   padding-bottom: 40px;
   padding-top: 40px;
@@ -44,6 +44,13 @@ a.footer-link {
   width: 33px;
 }
 
+@media screen and (min-width: 330px) {
+  .footer-icons {
+    height: 40px;
+    width: 40px;
+  }
+}
+
 @media screen and (min-width: 360px) {
   .footer-icons {
     height: 40px;
@@ -54,12 +61,43 @@ a.footer-link {
 
 @media screen and (min-width: 412px) {
   .footer-icons {
+    height: 45px;
+    width: 45px;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .footer-icons {
     height: 50px;
     width: 50px;
   }
 }
 
-a.footer-social-links, a.footer-social-links .footer-icons {
+@media screen and (min-width: 992px) {
+  .footer-icons {
+    height: 45px;
+    margin: 3px;
+    width: 45px;
+  }
+}
+
+@media screen and (min-width: 1053px) {
+  .footer-icons {
+    height: 45px;
+    margin: 5px;
+    width: 45px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .footer-icons {
+    height: 50px;
+    width: 50px;
+  }
+}
+
+a.footer-social-links,
+a.footer-social-links .footer-icons {
   text-decoration: none !important; // Get rid of default link-underline on hover
 }
 
@@ -80,4 +118,5 @@ a.footer-social-links:hover .footer-icons {
 
 .footer__svg--logo {
   height: 36px; // Needed for IE
+  max-width: 100%;
 }
