@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkkcc_gem_theme=self.webpackChunkkcc_gem_theme||[]).push([[971],{971:function(e,c,k){k.r(c)}}]);
