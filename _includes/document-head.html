@@ -7,6 +7,9 @@
     <title>{{page.title}} - {{site.title}}</title>
     <meta name="description" content="{{page.description}}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {%- if site.canonical_baseurl %}
+    <link rel="canonical" href="{% if page.url == '/' %}{{ site.canonical_baseurl }}{% else %}{{ site.canonical_baseurl }}{{ page.url }}{% endif %}">
+    {%- endif %}
     {% include preconnect.html %}
     <!-- ==============================
       KCC GEM THEME
