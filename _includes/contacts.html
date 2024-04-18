@@ -22,7 +22,7 @@
                 <div class="col-4 contacts__col--img">
                   <img src="{{ page.baseurl }}assets/img/blank-contact.svg" data-src="{{ page.baseurl }}{{ contact.portrait_image }}" alt="Photo of {{ contact.name }}" class="img-fluid contacts__portrait" />
                 </div>
-                <div class="col-8 float-right">
+                <div class="col-8">
                   <h5 class="typography__contacts--name notranslate">{{ contact.name }}</h5>
                   {% if contact.contacts_title %}<h6 class="typography__contacts--title">{{ contact.contacts_title }}</h6>{% endif %}
                   <p class="notranslate">
@@ -40,7 +40,7 @@
                 <div class="col-4 contacts__col--img">
                   <!-- No contact portrait -->
                 </div>
-                <div class="col-8 float-right">
+                <div class="col-8">
                   <h5 class="typography__contacts--name notranslate">{{ contact.name }}</h5>
                   {% if contact.contacts_title %}<h6 class="typography__contacts--title">{{ contact.contacts_title }}</h6>{% endif %}
                   <p class="notranslate">
@@ -81,7 +81,7 @@
               </button>
             </div>
             <div class="modal-body">
-              {% if contact.portrait_image %}<img src="{{ page.baseurl }}assets/img/blank-contact.svg" data-src="{{ page.baseurl }}{{ contact.portrait_image }}" class="img-fluid float-left mr-2 mb-2" alt="Photo of {{ contact.name }} KCC's {{ contact.contacts_title }}">{% endif %}
+              {% if contact.portrait_image %}<img src="{{ page.baseurl }}assets/img/blank-contact.svg" data-src="{{ page.baseurl }}{{ contact.portrait_image }}" class="img-fluid me-2 mb-2" alt="Photo of {{ contact.name }} KCC's {{ contact.contacts_title }}">{% endif %}
               <h5 class="typography__contacts--name notranslate">{{ contact.name }}</h5>
               {% if contact.contacts_title %}<h6 class="typography__contacts--title">{{ contact.contacts_title }}</h6>{% endif %}
               {{ contact.content }}

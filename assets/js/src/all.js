@@ -47,6 +47,11 @@ window.addEventListener('load', async () => {
   }
 
   import('./walkText').then(({ default: walkText }) => walkText(document.body));
+
+  if (document.getElementById('SearchTermForm')) {
+    import('./watchForWebsiteSearch')
+      .then(({ default: watchForWebsiteSearch }) => watchForWebsiteSearch());
+  }
   
   if (document.querySelector('[data-bs-toggle="modal"]')) {
     // This import enables modals in pages with modal HTML markup
