@@ -7,13 +7,12 @@
 // Each key's value gets set to the corresponding cell in the row below
 // ====================================================================
 function cacheResponse(response) { // response from Google API's spreadsheet.values.get() method
-  const VALUES = response.result.values; // This is where the table's data is in a Sheets response in Sheets API V4
-  const TABLE_HEADER_ROW = VALUES[1]; // 2nd row in the sheet (first row is instructions to the user)
-  const TABLE_BODY_ROW = VALUES[2]; // The only row of data in our table
+  const values = response.result.values; // This is where the table's data is in a Sheets response in Sheets API V4
+  const [, headerRow, bodyRow] = values; // 1st row = instructions, 2nd row = header row, 3rd row = body row
   
-  for (let i = 0, len = TABLE_BODY_ROW.length; i < len; i++ ) {
-    const cell = TABLE_BODY_ROW[i];
-    const column = TABLE_HEADER_ROW[i];
+  for (let i = 0, len = bodyRow.length; i < len; i++ ) {
+    const cell = bodyRow[i];
+    const column = headerRow[i];
 
     window.sessionStorage.setItem(column.replace(' ', '-'), cell);
   }

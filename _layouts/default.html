@@ -2,7 +2,7 @@
   {% include styles/fonts.html %}
   {% include scripts/google-tag.html %}
   {% include styles/vendor.html %}
-  {% if page.sheet_key %}
+  {% if page.sheet_key or page.include_datatables == true %}
   <!-- dataTables stylesheets -->
   <!-- dataTables Bootstrap4 themed stylesheet -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
@@ -18,7 +18,7 @@
   {% if page.no_alert != true %}{% include emergency-alerts.html %}{% endif %}
   {{ content }}
   {% include footer.html %}
-  {% include scripts/vendor-cdn.html %}
+  {% include scripts/vendor.html %}
   {% include scripts/kcc-theme.html %}
   {% include scripts/google-api.html %}
   {% if page.sheet_key %}

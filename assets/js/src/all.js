@@ -1,5 +1,6 @@
 import '../../scss/kcc-theme.scss'; // Import scss file into webpack main entry-point for webpack compiled css
-//import test from './test.js';
+
+import Collapse from 'bootstrap/js/dist/collapse';
 
 // function loadModule(...theArgs) {
 //   const len = theArgs.length;
@@ -11,11 +12,14 @@ import '../../scss/kcc-theme.scss'; // Import scss file into webpack main entry-
 //   return import(`${path}${module}.js`).then(({ default: defaultFn }) => defaultFn() );
 // }
 
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
 
-  import('./alerts').then(({ default: alerts }) => alerts());
+  if (document.querySelector('[data-bs-toggle="dropdown"]')) {
+    // Dropdown does not need to be called to existing dropdown HTML markup work
+    const { default: Dropdown } = await import('bootstrap/js/dist/dropdown');
+  }
 
-  import('./addClassToOpenNavbar').then(({ default: addClassToOpenNavbar }) => addClassToOpenNavbar());
+  import('./alerts').then(({ default: alerts }) => alerts(Collapse));
 
   import('../nav/nav').then(({ default: nav }) => nav());
 
@@ -42,7 +46,12 @@ window.addEventListener('load', () => {
       .then(({ default: footerDate }) => footerDate());
   }
 
-  import('./walkText').then(({default: walkText}) => walkText(document.body));
+  import('./walkText').then(({ default: walkText }) => walkText(document.body));
+  
+  if (document.querySelector('[data-bs-toggle="modal"]')) {
+    // This import enables modals in pages with modal HTML markup
+    const { default: Modal } = await import('bootstrap/js/dist/modal');
+  }
 
   // loadModule('alerts','./').then(() => { // Get the campus alerts message & build it out
   //   loadModule('addClassToOpenNavbar', './');

@@ -1,5 +1,5 @@
-const YT_EMBED_PARENT = document.getElementById('yt-embed');
-const YT_EMBED_PARENT_VIDEO_ID = YT_EMBED_PARENT.dataset.video;
+const ytEmbedParent = document.getElementById('yt-embed');
+const videoId = ytEmbedParent.dataset.video;
 //<iframe width="560" height="315" src="https://www.youtube.com/embed/LUCrx9chw-c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 function setAttributes(el, arg, argVal) {
@@ -19,10 +19,10 @@ function ytEmbed() {
   const iframe = document.createElement('iframe');
 
   setAttributes(iframe, ['width', 'height', 'frameborder', 'allow', 'allowfullscreen'], ['560', '315', '0', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture', '']);
-  YT_EMBED_PARENT.appendChild(iframe);
-  setAttributes(iframe, 'src', 'https://www.youtube.com/embed/' + YT_EMBED_PARENT_VIDEO_ID + '?showinfo=0&rel=0');
+  ytEmbedParent.appendChild(iframe);
+  setAttributes(iframe, 'src', 'https://www.youtube.com/embed/' + videoId + '?showinfo=0&rel=0');
   iframe.onload = () => {
-    YT_EMBED_PARENT.removeChild(YT_EMBED_PARENT.querySelector('.yt-embed'));
+    ytEmbedParent.removeChild(ytEmbedParent.querySelector('.yt-embed'));
   }
 
 }

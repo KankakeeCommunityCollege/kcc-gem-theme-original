@@ -13,7 +13,7 @@
 const idRegex = /^id=/g; // Lets just cache these reused regex's here
 const queryStartRegex = /^\?/g;
 const endingSlashRegex = /\/$/g;
-const PREFERS_REDUCED_MOTION_LOCALSTORAGE_KEY = 'userPrefersReducedMotion'; // This localStorage key is set by module: './checkForPrefersReducedMotion.js'
+const REDUCED_MOTION_STORAGE_KEY = 'userPrefersReducedMotion'; // This localStorage key is set by module: './checkForPrefersReducedMotion.js'
 const scrollIntoViewOptionsObject = {
   behavior: 'smooth',
   block: 'center'
@@ -23,7 +23,7 @@ const reducedMotionscrollIntoViewOptionsObject = {
 }
 
 function focusElement(el) {
-  const prefersReducedMotion = window.localStorage.getItem(PREFERS_REDUCED_MOTION_LOCALSTORAGE_KEY);
+  const prefersReducedMotion = window.localStorage.getItem(REDUCED_MOTION_STORAGE_KEY);
 
   prefersReducedMotion == 'true' ? el.scrollIntoView(reducedMotionscrollIntoViewOptionsObject) : el.scrollIntoView(scrollIntoViewOptionsObject);
   return el.focus();
@@ -49,49 +49,54 @@ function findContentTarget(hash) {
   focusElement(target);
 }
 
-function checkForMatchingTabOrAccordion(hash) {
-  if ( document.querySelector(`.nav-tabs a[href="${hash}"]`) ) {  // Looks for a matching BS4 tab element
-    let tab = $(`.nav-tabs a[href="${hash}"]`);  // **SIGH**, BS4 requires JQuery
+async function checkForMatchingTabOrAccordion(hash, Collapse) {
+  if (document.querySelector(`.nav-tabs a[href="${hash}"]`)) {  // Looks for a matching BS4 tab element
+    const { default: Tab } = await import('bootstrap/js/dist/tab');
+    let tab = document.querySelector(`.nav-tabs a[href="${hash}"]`);
+    const bsTab = new Tab(tab, { toggle: false });
 
-    tab
-      .on('shown.bs.tab', () => {  // Bootstrap 4 method for tab events // Must be defined before the tab is activated
-        window.location.search ?
-          checkForQuery(window.location.search.replace(queryStartRegex, ''), hash)
-          : null; })
-      .tab('show');  // Bootstrap 4 Tab method
+    tab.addEventListener('shown.bs.tab', () => {
+      if (window.location.search) {
+        checkForQuery(window.location.search.replace(queryStartRegex, ''), hash);
+      }
+    });
+    bsTab.show();
     findContentTarget(`${hash}-label`); // You need to .scrollIntoView() & .focus() on the tab-label which is an <a href="...">. It won't work to do .scrollIntoView() and .focus() on the div
-  } else if ( document.querySelector(`${hash}.collapse`) ) {  // Looks for a matching BS4 collapse element
-    let card = $(hash);  // **SIGH**, BS4 requires JQuery
+  } else if (document.querySelector(`.accordion ${hash}.collapse`)) {  // Looks for a matching BS4 collapse element
+    let card = document.querySelector(hash);
+    const bsCollapse = new Collapse(card, { toggle: false });
 
-    card
-      .on('shown.bs.collapse', () => {  // Bootstrap 4 Collapse method // Must be defined before the collapse is activated
-        window.location.search ?
-          checkForQuery(window.location.search.replace(queryStartRegex, ''), hash)
-        : null; })
-      .collapse('show'); // Bootstrap 4 Collapse method
+    card.addEventListener('shown.bs.collapse', _e => {
+      if (window.location.search) {
+        checkForQuery(window.location.search.replace(queryStartRegex, ''), hash);
+      }
+    });
+    bsCollapse.show();
     findContentTarget(hash);
   }
 }
 
-function checkForHash(e) {
+function checkForHash(Collapse) {
   if (window.location.hash) {
     let hash = window.location.hash.replace(endingSlashRegex, '');
 
-    checkForMatchingTabOrAccordion(hash);
+    checkForMatchingTabOrAccordion(hash, Collapse);
   }
   return;
 }
 
-function initContentHashLink() {
-  checkForHash();
-  window.addEventListener('hashchange', checkForHash, false);
+function initContentHashLink(Collapse) {
+  checkForHash(Collapse);
+  window.addEventListener('hashchange', _e => {
+    checkForHash(Collapse);
+  }, false);
 }
 
-function contentHashLink() {
+function contentHashLink(Collapse) {
   if (!document.querySelector('#accordion') && !document.querySelector('.nav.nav-tabs'))
     return;
     
-  initContentHashLink();
+  initContentHashLink(Collapse);
 }
 
 export default contentHashLink;

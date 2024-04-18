@@ -13,14 +13,14 @@ nav_links:
   - link_text: Home
     link_href: ''
     button: false
-  - link_text: Landing Page
-    link_href: 'landing-page'
-    button: false
   - link_text: accordion
     link_href: 'accordion'
     button: false
-  - link_text: Tabbed Navigation
-    link_href: 'tabbed-nav'
+  - link_text: Modal
+    link_href: 'modal'
+    button: false
+  - link_text: Contacts
+    link_href: '#contact'
     button: false
   - link_text: Enroll
     dropdown:
@@ -41,11 +41,11 @@ nav_links:
 ##                                                                                                           ##
 ## ========================================================================================================== #
 #
-#sub-nav_links:
-#  - link_text: Sheets
-#    link_href: 'reference/gsheets'
-#  - link_text: CloudCannon
-#    link_href: 'reference/cloudcannon'
+sub-nav_links:
+ - link_text: Public Relations
+   link_href: 'accordion/public-relations'
+ - link_text: Web Services
+   link_href: 'accordion/web-services'
 #
 collections:
   tabs:
@@ -78,9 +78,9 @@ future: true
 # Build settings
 markdown: kramdown
 
-include:
-  - "_accordions/"
-  - "_tabs/"
+# include:
+  # - "_accordions/"
+  # - "_tabs/"
 
 exclude:
   - "node_modules"
@@ -90,13 +90,14 @@ exclude:
   - "README.md"
   - "Gemfile"
   - "Gemfile.lock"
-  - "gulpconfig.yml"
   - "LICENSE.txt"
   - "webpack.config.js"
   - "*.gem"
   - "*.gemspec"
   - "buildtools/"
   - "postcss.config.js"
+  - "look-for-deprecated-bs4-classes.mjs"
+  - "look-for-deprecated-bs4-js.mjs"
 
 uploads_dir: # specifies the default uploads directory for CloudCannon
   - "uploads/"

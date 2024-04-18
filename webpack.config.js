@@ -21,7 +21,8 @@ module.exports = {
   mode: devMode ? 'development' : 'production',
   plugins,
   entry: {
-    theme: './assets/js/src/all.js'
+    theme: './assets/js/src/all.js',
+    bootstrap: './assets/js/src/bootstrap.js'
   },
   output: {
     filename: '[name].[fullhash].bundle.js',

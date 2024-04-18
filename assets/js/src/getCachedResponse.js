@@ -11,12 +11,7 @@ import createAlertsHtml from './createAlertsHtml.js';
 import contentHashLink from './contentHashLink.js';
 const cache = window.sessionStorage;
 
-function processCachedResponse(response, callback) {
-  createAlertsHtml(response);
-  return callback();
-}
-
-function createCachedResponseObject() {
+function createCachedResponseObject(Collapse) {
   let cachedResponse = {  // Reconstructing our own Google Sheet-like response from the sessionStorage items
     result: {
       values: [
@@ -26,14 +21,15 @@ function createCachedResponseObject() {
       ]
     }
   }
-  processCachedResponse(cachedResponse, contentHashLink);
+  createAlertsHtml(cachedResponse, Collapse);
+  contentHashLink(Collapse);
 }
 
-function getCachedResponse() {
+function getCachedResponse(Collapse) {
   try {
-    createCachedResponseObject();
+    createCachedResponseObject(Collapse);
   } catch (error) {
-    contentHashLink();
+    contentHashLink(Collapse);
     console.error(`Error retrieving cached response in sessionStorage:\nName: ${error.name}\nMessage: ${error.message}\n${error}`);
   }
 }

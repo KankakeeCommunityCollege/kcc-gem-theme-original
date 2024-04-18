@@ -1,4 +1,4 @@
-const INLINE_MARKDOWN_ELEMENTS_OBJECT = {
+const inlineMarkdownElementsObject = {
   'strong': /\*\*([^\*]*)\*\*/g,
   'em': /_([^_]*)_/g
 }
@@ -36,9 +36,9 @@ function replacer(match, p1) {
   if ( p1 === '' ) { // Filters out the '__' (double underscore) matches.
     return match;
   } else {
-    for (var el in INLINE_MARKDOWN_ELEMENTS_OBJECT) {
-      if (INLINE_MARKDOWN_ELEMENTS_OBJECT.hasOwnProperty(el)) {
-        match = match.replace(INLINE_MARKDOWN_ELEMENTS_OBJECT[el], '<' + el + '>$1</' + el + '>' );
+    for (var el in inlineMarkdownElementsObject) {
+      if (inlineMarkdownElementsObject.hasOwnProperty(el)) {
+        match = match.replace(inlineMarkdownElementsObject[el], '<' + el + '>$1</' + el + '>' );
       }
     }
     return match;
@@ -46,9 +46,9 @@ function replacer(match, p1) {
 }
 
 function createInlineElements(string) {
-  for (var el in INLINE_MARKDOWN_ELEMENTS_OBJECT) {
-    if (INLINE_MARKDOWN_ELEMENTS_OBJECT.hasOwnProperty(el)) {
-      string = string.replace(INLINE_MARKDOWN_ELEMENTS_OBJECT[el], replacer);
+  for (var el in inlineMarkdownElementsObject) {
+    if (inlineMarkdownElementsObject.hasOwnProperty(el)) {
+      string = string.replace(inlineMarkdownElementsObject[el], replacer);
     }
   }
   return string;

@@ -8,39 +8,42 @@
 //  3. Run the `contentHashLink` module after alert has painted into DOM (and altered documents hight)
 //  4. Cache the API response in sessionStorage
 // =================================================== //
-import setSheetParameters from './simpleSetSheetParameters.js';
 import createAlertsHtml from './createAlertsHtml.js';
 import contentHashLink from './contentHashLink.js';
 import cacheResponse from './cacheResponse.js';
 
 const SHEET_KEY = '1plXBiZY5pVbhNT-mszxEuqCl4zy8wMnz9gXXbbT_yLs'; // Corresponds to the ID of the Google Sheet
 const SHEET_TAB = 'Alerts'; // Corresponds to the tab of workbook: either  'Alerts' or 'Alerts Testing' unless you make a new one.
-const EMERGENCY_ALERT_DIV_ID = 'emergencyAlerts'
-const SHEET_PARAMS = setSheetParameters(SHEET_KEY, SHEET_TAB);  // Configures the Object used for `sheets.spreadsheets.values.get()` parameters
-const API_PARAMS = { // This is configuration for API call with spreadsheets that are setup as readonly
+// const devSheetTab = 'ALERTS_TESTING';
+const sheetParams = {
+  spreadsheetId: SHEET_KEY,
+  range: SHEET_TAB
+  // range: devSheetTab
+}
+const apiParams = { // This is configuration for API call with spreadsheets that are setup as readonly
   'apiKey': 'AIzaSyCEBsbXfFcdbkASlg-PodD1rT_Fe3Nw62A',
   'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/sheets/v4/rest']
 };
 
-function init() {
-  gapi.client.init(API_PARAMS).then(() => { // Executes an API request, and returns a Promise.
-    return gapi.client.sheets.spreadsheets.values.get(SHEET_PARAMS)
+function init(Collapse) {
+  gapi.client.init(apiParams).then(() => { // Executes an API request, and returns a Promise.
+    return gapi.client.sheets.spreadsheets.values.get(sheetParams)
   }).then((response) => {
-    createAlertsHtml(response); // Build the html & inject it into the DOM
+    createAlertsHtml(response, Collapse); // Build the html & inject it into the DOM
     return response;
   }).then((response) => {
     cacheResponse(response); // Cache the Google API response for subsequent page loads in the site
   }, (err)=> {
     console.error("Execute error", err);
-    contentHashLink();
+    contentHashLink(Collapse);
   });
 }
 
-function start() {
-  if ( ! document.getElementById(EMERGENCY_ALERT_DIV_ID) )
-    return contentHashLink();
+function start(Collapse) {
+  if ( ! document.getElementById('emergencyAlerts') )
+    return contentHashLink(Collapse);
 
-  init();
+  init(Collapse);
   //var t1 = performance.now();
   //console.info("Call to 'init' took " + (t1 - t0) + " milliseconds.");
 }

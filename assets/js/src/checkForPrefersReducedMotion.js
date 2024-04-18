@@ -1,17 +1,15 @@
 function checkForPrefersReduceMotion() {
   const reducedMotionMediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const userAgent = window.navigator.userAgent;
-  const msExplorer = (userAgent.search(/MSIE/g) !== -1)
-  let reducedMotion;
+  let reducedMotion = reducedMotionMediaQuery.matches ? true : false;
 
-  reducedMotionMediaQuery.matches ? reducedMotion = true : reducedMotion = false;
   localStorage.setItem('userPrefersReducedMotion', reducedMotion);
 
-  if (msExplorer)  // Bail out at this point if user is in IE
-    return;        // IE does NOT support `mediaQueryList.onchange`
-
-  reducedMotionMediaQuery.addEventListener('change', (e) => {
-    reducedMotionMediaQuery.matches ? reducedMotion = true : reducedMotion = false;
+  reducedMotionMediaQuery.addEventListener('change', _e => {
+    if (reducedMotionMediaQuery.matches) {
+      reducedMotion = true;
+    } else {
+      reducedMotion = false;
+    }
     localStorage.setItem('userPrefersReducedMotion', reducedMotion);
   });
 }

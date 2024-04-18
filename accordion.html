@@ -1,5 +1,6 @@
 ---
-layout: default
+layout: sub-nav
+sub-nav_section: accordion
 title: Accordion
 baseurl: ../
 accordion_expanded: true
@@ -10,6 +11,10 @@ accordion_expanded: true
     <div class="col">
       <h1 class="display-4">Holy Accordions Batman!</h1>
       {% include accordion.html %}
+      <br>
+      <hr>
+      <br>
+      {% include tabbed-content.html %}
     </div>
   </div>
 </main>

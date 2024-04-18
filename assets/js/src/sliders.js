@@ -1,6 +1,6 @@
 // Custom JS to initialize slick slider (https://github.com/kenwheeler/slick) and then build a play/pause toggle button
 // Uses slick-specific methods & slick events. See slick events at: https://github.com/kenwheeler/slick/#events
-const HERO_SLIDER_CLASSNAME = '.hero-slider__slider';  // Our classname for the hero-slider's DOM parent
+const heroSliderClassName = '.hero-slider__slider';  // Our classname for the hero-slider's DOM parent
 const SLICK_PLAY = 'slickPlay';  // Methods unique to slick
 const SLICK_PAUSE = 'slickPause';  // Methods unique to slick
 const SLICK_NEXT_SLIDE = 'slickNext';  // Methods unique to slick
@@ -14,7 +14,7 @@ const pause = 'Pause';
 // =============================================================================================== //
 
 function initSlick() {
-  $(HERO_SLIDER_CLASSNAME).slick({
+  $(heroSliderClassName).slick({
     dots: true,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -32,12 +32,12 @@ function setAttributeOnEl(el, attr, value) {
 function toggleSlickPlayState(el, slickState, newButtonText) {
   const newButtonTextIsPause = newButtonText === pause;
 
-  $(HERO_SLIDER_CLASSNAME).slick(slickState);
+  $(heroSliderClassName).slick(slickState);
   setAttributeOnEl(el, 'aria-label', newButtonText);
   el.classList.toggle('hero-slider__button--play');
   el.innerHTML = newButtonText;
 
-  newButtonTextIsPause ? $(HERO_SLIDER_CLASSNAME).slick(SLICK_NEXT_SLIDE) : null;
+  newButtonTextIsPause ? $(heroSliderClassName).slick(SLICK_NEXT_SLIDE) : null;
 }
 
 function watchForElementClicks(el) {
@@ -49,7 +49,7 @@ function watchForElementClicks(el) {
 }
 
 function createButton() {
-  const SLICK_PARENT_EL = document.querySelector(HERO_SLIDER_CLASSNAME);
+  const slickParent = document.querySelector(heroSliderClassName);
   const button = document.createElement('button');
   const initialButtonText = 'Pause';
 
@@ -59,30 +59,23 @@ function createButton() {
   setAttributeOnEl(button, 'style', 'display: block;');
   button.innerHTML = initialButtonText;
   button.classList.add('hero-slider__button--toggle');
-  SLICK_PARENT_EL.appendChild(button);
+  slickParent.appendChild(button);
   watchForElementClicks(button);
 }
 
 function watchForSlickInit(initFunction) {
   // slick's on 'init' function (See events in slick docs):
-  $(HERO_SLIDER_CLASSNAME).on('init', function(event, slick){ // According to slick doc's; you have to call a $(slick).on('init', function(){ //... }); before you initialize slick
+  $(heroSliderClassName).on('init', function(event, slick){ // According to slick doc's; you have to call a $(slick).on('init', function(){ //... }); before you initialize slick
     createButton();
   });
   initFunction();  // Initializing slick after the above `.on('init', function() {})`
 }
 
 function initSliders() {
-  if ( ! document.querySelector(HERO_SLIDER_CLASSNAME) )
+  if ( ! document.querySelector(heroSliderClassName) )
     return;
 
   watchForSlickInit(initSlick);
 }
-//
-//  USAGE:
-//
-//    import initSliders from './sliders.js';
-//
-//    document.addEventListener('DOMContentLoaded', function() {
-//      initSliders();
-//    });
+
 export default initSliders;
