@@ -10,7 +10,7 @@ function alerts(Collapse) {
   checkForPrefersReducedMotion();
 
   // Checks if our cached alert is already in sessionStorage
-  if (window.sessionStorage.getItem('Alert-Content')) {
+  if (!window.sessionStorage.getItem('Alert-Content')) {
     // If not, build the alert from a new Google API response
     gapi.load('client', () => {
       start(Collapse);

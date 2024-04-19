@@ -1,5 +1,5 @@
 const slideHeadingList = document.querySelectorAll('.hero-slider__slider--slide-heading'); // Element from HTML
-const regEx = /\*\*(\S+)\*\*/g;
+const regEx = /\*\*([^\*]+)\*\*/g;
 const replacement = '<span class="typography__power-text">$1</span>';
 
 function wrapPowerText() {

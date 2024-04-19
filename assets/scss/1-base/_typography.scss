@@ -13,6 +13,7 @@ body {
   color: $primary-blue;
   display: inline;
   font-family: $font-family-kcc;
+  font-display: swap;
   font-size: 1.5rem;
   font-style: italic;
   font-weight: 700;
@@ -579,6 +580,7 @@ h1 sup, h2 sup, h3 sup, h4 sup, h5 sup, h6 sup { // Make superscripts within hea
 .typography__register--thank-you {
   color: $primary-blue;
   font-family: $font-family-kcc;
+  font-display: swap;
   font-size: 2rem;
   &--message {
     color: $primary-red;
@@ -625,6 +627,7 @@ h1 sup, h2 sup, h3 sup, h4 sup, h5 sup, h6 sup { // Make superscripts within hea
 
 .typography__my-kcc {
   font-family: $font-family-kcc;
+  font-display: swap;
   line-height: 1.2;
   font-size: 1.2rem;
 }

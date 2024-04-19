@@ -17,12 +17,8 @@
         rel="noopener noreferrer"
         {%- endif %}>
         <img
-          {%- if forloop.first == true %}
-          src="{{ page.baseurl }}{{ slide.image }}"
-          {%- else %}
-          src="{{ page.baseurl }}assets/img/placeholder_16to9.jpg"
+          src="{{ page.baseurl }}assets/img/placeholder_16to9.svg"
           data-src="{{ page.baseurl }}{{ slide.image }}"
-          {%- endif %}
           class="img-fluid hero-slider__slider--slide-img{% if slide.white_background %} hero-slider__slide-img--border{% endif %}"
           alt="{{ slide.alt-text | replace: '"', '&quot;' }}">
       </a>

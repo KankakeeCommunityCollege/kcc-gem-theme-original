@@ -14,27 +14,34 @@ import Collapse from 'bootstrap/js/dist/collapse';
 
 window.addEventListener('load', async () => {
 
-  if (document.querySelector('[data-bs-toggle="dropdown"]')) {
-    // Dropdown does not need to be called to existing dropdown HTML markup work
-    const { default: Dropdown } = await import('bootstrap/js/dist/dropdown');
+  if (document.querySelector('.hero-slider__slider')) {
+    import('./wrapPowerText')
+      .then(({ default: wrapPowerText }) => wrapPowerText())
+      .then(() => {
+        import('./sliders')
+          .then(({ default: initSliders }) => initSliders())
+      })
+    // import('./sliders')
+    //   .then(({ default: initSliders }) => initSliders())
+    //   .then(() => {
+    //     import('./wrapPowerText')
+    //       .then(({ default: wrapPowerText }) => wrapPowerText())
+    //   })
   }
 
   import('./alerts').then(({ default: alerts }) => alerts(Collapse));
 
   import('../nav/nav').then(({ default: nav }) => nav());
 
+  if (document.querySelector('[data-bs-toggle="dropdown"]')) {
+    // Dropdown does not need to be called to existing dropdown HTML markup work
+    const { default: Dropdown } = await import('bootstrap/js/dist/dropdown');
+  }
+
   if (document.getElementById('google_translate_element')) {
     import('../../scss/translate.scss').then(() => {
       import('./translate').then(({ default: translate }) => translate());
     })
-  }
-
-  if (document.querySelector('.hero-slider__slider')) {
-    import('./wrapPowerText')
-      .then(({ default: wrapPowerText }) => wrapPowerText())
-      .then(() => {
-        import('./sliders').then(({ default: initSliders }) => initSliders())
-      })
   }
 
   if (document.querySelector('img[data-src]')) {
