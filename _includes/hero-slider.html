@@ -1,32 +1,44 @@
-
-<div class="row">
-  <div class="col hero-slider__slider">
-  {% for slide in page.slides %}
+{% assign slide_collection = page.slides %}
+<div class="row{% if page.slider_parent_classes %} {{ page.slider_parent_classes | join: ' ' }}{% endif %}">
+  <div class="col hero-slider__slider hero-slider__slides-{{ slide_collection.size }}">
+  {% for slide in slide_collection %}
   {% assign url_first_char = slide.url | slice: 0 %}
-  {%- if slide.url contains 'https://' or slide.url contains 'http://' or url_first_char == '.' or url_first_char == '/' -%}
-  {%- assign slide_url = slide.url -%}
-  {%- else -%}
-  {%- assign slide_url = slide.url | prepend: page.baseurl -%}
-  {%- endif -%}
+    {% if forloop.first == true %}
     <div>
       <a
-        href="{{ slide_url }}"
         class="ga_slider_link"
-        {%- if slide.new_tab == true %}
-        target="_blank"
-        rel="noopener noreferrer"
-        {%- endif %}>
-        <img
-          src="{{ page.baseurl }}assets/img/placeholder_16to9.svg"
-          data-src="{{ page.baseurl }}{{ slide.image }}"
-          class="img-fluid hero-slider__slider--slide-img{% if slide.white_background %} hero-slider__slide-img--border{% endif %}"
-          alt="{{ slide.alt-text | replace: '"', '&quot;' }}">
+        {% if slide.url contains "https://" or slide.url contains "http://" %}href="{{ slide.url }}"
+        {% elsif url_first_char == '.' or url_first_char == '/' or slide.url == '#' %}href="{{ slide.url }}"
+        {% else %}href="{{ page.baseurl }}{{ slide.url }}"{%- endif -%}
+        {% if slide.new_tab == true %} target="_blank" rel="noopener noreferrer"{%- endif -%}>
+        <img src="{{page.baseurl}}{{ slide.image | replace: '/uploads', 'uploads' | replace: '/assets', 'assets' }}"
+          class="img-fluid hero-slider__slider--slide-img {% if slide.white_background == true %} hero-slider__slide-img--border{% endif %}"
+          alt="{{slide.alt-text}}" />
       </a>
-      {%- if slide.text %}
+      {% if slide.text and slide.text != '' %}
       <div class="hero-slider__slider--heading-container text-center">
-        <h3 class="hero-slider__slider--slide-heading">{{ slide.text }}</h3>
+        <h3 class="hero-slider__slider--slide-heading">{{slide.text}}</h3>
+      </div>
+      {% endif %}
+    </div>
+    {%- else -%}
+    <div>
+      <a
+        class="ga_slider_link"
+        {% if slide.url contains "https://" or slide.url contains "http://" %}href="{{ slide.url }}"
+        {% elsif url_first_char == "." or url_first_char == "/" or slide.url == '#' %}href="{{ slide.url }}"
+        {% else %}href="{{ page.baseurl }}{{ slide.url }}"{%- endif -%}
+        {% if slide.new_tab == true %} target="_blank" rel="noopener noreferrer"{%- endif -%}>
+        <img src="{{ page.baseurl }}assets/img/placeholder_16to9.jpg"
+          data-src="{{page.baseurl}}{{ slide.image | replace: '/uploads', 'uploads' | replace: '/assets', 'assets' }}"
+          class="img-fluid hero-slider__slider--slide-img {% if slide.white_background == true %} hero-slider__slide-img--border{% endif %}"
+          alt="{{slide.alt-text}}" />
+      </a>
+      {% if slide.text and slide.text != "" %}<div class="hero-slider__slider--heading-container text-center">
+      <h3 class="hero-slider__slider--slide-heading">{{slide.text}}</h3>
       </div>{% endif %}
     </div>
-  {% endfor %}
+    {% endif %}
+  {%- endfor -%}
   </div>
 </div>
