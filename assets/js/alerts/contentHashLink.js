@@ -10,10 +10,11 @@
 //  This JS will allow us to link to a specific area of content in a page where a traditional hash link wouldn't work
 //  In this case hash links won't work because the element with he matching ID is "stuck" in a closed accordion or tab.
 //
-const idRegex = /^id=/g; // Lets just cache these reused regex's here
-const queryStartRegex = /^\?/g;
+import Tab from 'bootstrap/js/dist/tab'; // Import Tab from Bootstrap 5
+
+const idRegex = /.*[\?&]id=([^&]+).*$/; // Lets just cache these reused regex's here
 const endingSlashRegex = /\/$/g;
-const REDUCED_MOTION_STORAGE_KEY = 'userPrefersReducedMotion'; // This localStorage key is set by module: './checkForPrefersReducedMotion.js'
+const PREFERS_REDUCED_MOTION_LOCALSTORAGE_KEY = 'userPrefersReducedMotion'; // This localStorage key is set by module: './checkForPrefersReducedMotion.js'
 const scrollIntoViewOptionsObject = {
   behavior: 'smooth',
   block: 'center'
@@ -23,14 +24,14 @@ const reducedMotionscrollIntoViewOptionsObject = {
 }
 
 function focusElement(el) {
-  const prefersReducedMotion = window.localStorage.getItem(REDUCED_MOTION_STORAGE_KEY);
+  const prefersReducedMotion = window.localStorage.getItem(PREFERS_REDUCED_MOTION_LOCALSTORAGE_KEY);
 
   prefersReducedMotion == 'true' ? el.scrollIntoView(reducedMotionscrollIntoViewOptionsObject) : el.scrollIntoView(scrollIntoViewOptionsObject);
   return el.focus();
 }
 
 function processIdQuery(query, hash) {
-  let id = query.replace(idRegex, '');
+  let id = query.replace(idRegex, `$1`);
   const parentEl = document.querySelector(hash);
   const heading = parentEl.querySelector(`#${id}`);
 
@@ -49,30 +50,27 @@ function findContentTarget(hash) {
   focusElement(target);
 }
 
-async function checkForMatchingTabOrAccordion(hash, Collapse) {
-  if (document.querySelector(`.nav-tabs a[href="${hash}"]`)) {  // Looks for a matching BS4 tab element
-    const { default: Tab } = await import('bootstrap/js/dist/tab');
-    let tab = document.querySelector(`.nav-tabs a[href="${hash}"]`);
-    const bsTab = new Tab(tab, { toggle: false });
+function checkForMatchingTabOrAccordion(hash, Collapse) {
+  if ( document.querySelector(`.nav-tabs a[href="${hash}"]`) ) {  // Looks for a matching BS4 tab element
+    const tab = document.querySelector(`.nav-tabs a[href="${hash}"]`);
+    const bsTab = new Tab(tab);
 
-    tab.addEventListener('shown.bs.tab', () => {
-      if (window.location.search) {
-        checkForQuery(window.location.search.replace(queryStartRegex, ''), hash);
-      }
+    tab.addEventListener('shown.bs.tab', _e => {
+      window.location.search ?
+        checkForQuery(window.location.search, hash)
+      : findContentTarget(`${hash}-label`); // You need to .scrollIntoView() & .focus() on the tab-label which is an <a href="...">. It won't work to do .scrollIntoView() and .focus() on the div
     });
     bsTab.show();
-    findContentTarget(`${hash}-label`); // You need to .scrollIntoView() & .focus() on the tab-label which is an <a href="...">. It won't work to do .scrollIntoView() and .focus() on the div
-  } else if (document.querySelector(`.accordion ${hash}.collapse`)) {  // Looks for a matching BS4 collapse element
-    let card = document.querySelector(hash);
-    const bsCollapse = new Collapse(card, { toggle: false });
+  } else if ( document.querySelector(`${hash}.collapse`) ) {  // Looks for a matching BS4 collapse element
+    const card = document.querySelector(hash);
+    const bsCard = new Collapse(card, {toggle: false});
 
     card.addEventListener('shown.bs.collapse', _e => {
-      if (window.location.search) {
-        checkForQuery(window.location.search.replace(queryStartRegex, ''), hash);
-      }
+      window.location.search ?
+        checkForQuery(window.location.search, hash)
+      : findContentTarget(`button[data-bs-target="${hash}"]`);
     });
-    bsCollapse.show();
-    findContentTarget(hash);
+    bsCard.show();
   }
 }
 
@@ -85,18 +83,15 @@ function checkForHash(Collapse) {
   return;
 }
 
-function initContentHashLink(Collapse) {
+function contentHashLink(Collapse) {
   checkForHash(Collapse);
   window.addEventListener('hashchange', _e => {
     checkForHash(Collapse);
   }, false);
-}
 
-function contentHashLink(Collapse) {
-  if (!document.querySelector('#accordion') && !document.querySelector('.nav.nav-tabs'))
-    return;
-    
-  initContentHashLink(Collapse);
+  import('./addAccordionOrTabHistoryStates').then(({ default: addAccordionOrTabHistoryStates }) => {
+    addAccordionOrTabHistoryStates();
+  });
 }
 
 export default contentHashLink;

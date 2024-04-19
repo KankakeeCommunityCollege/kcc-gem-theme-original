@@ -29,7 +29,7 @@ window.addEventListener('load', async () => {
     //   })
   }
 
-  import('./alerts').then(({ default: alerts }) => alerts(Collapse));
+  import('../alerts/alerts').then(({ default: alerts }) => alerts(Collapse));
 
   import('../nav/nav').then(({ default: nav }) => nav());
 
