@@ -21,7 +21,7 @@
   {% include scripts/vendor.html %}
   {% include scripts/kcc-theme.html %}
   {% include scripts/google-api.html %}
-  {% if page.sheet_key %}
+  {% if page.sheet_key or page.include_datatables %}
   {% include scripts/table-cdn.html %}
   {% endif %}
   {% include scripts/custom.html %}
