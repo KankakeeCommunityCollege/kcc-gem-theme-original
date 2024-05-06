@@ -14,12 +14,12 @@
       </li>
       {% elsif link.dropdown %}
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle btn btn-primary typography__nav-local--nav-link links__nav-link--color" href="#" id="{{ link.link_text | downcase }}NavbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle btn btn-primary typography__nav-local--nav-link links__nav-link--color" href="#" id="{{ link.link_text | downcase | split: ' ' | join: '-' }}-navbar-dropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{ link.link_text }}
         </a>
-        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="{{ link.link_text | downcase }}NavbarDropdown">
+        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="{{ link.link_text | downcase | split: ' ' | join: '-' }}-navbar-dropdown">
           {% for item in link.dropdown %}
-          <a class="dropdown-item" href="{{ page.baseurl }}{{ item.href }}">{{ item.text }}</a>
+          <a class="dropdown-item" href="{% unless item.href contains 'https://' %}{{ page.baseurl }}{% endunless %}{{ item.href }}">{{ item.text }}</a>
           {% endfor %}
         </div>
       </li>
