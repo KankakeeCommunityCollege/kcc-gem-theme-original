@@ -12,5 +12,4 @@
     <link rel="preload" as="script" href="{{ page.baseurl }}assets/js/dist/theme.{% include hash/theme_hash.yml %}.bundle.js">
     {% unless site.theme_config == true %}
     <link rel="preload" as="style" href="{{ page.baseurl }}assets/js/dist/main.{% if site.data.hash %}{{ site.data.hash }}.{% endif %}css">
-    <link rel="preload" as="script" href="{{ page.baseurl }}assets/js/dist/theme.{% if site.data.hash %}{{ site.data.hash }}.{% endif %}bundle.js">
     {% endunless %}
