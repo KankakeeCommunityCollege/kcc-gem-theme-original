@@ -22,10 +22,9 @@ function accordionHandler(e) {
 }
 
 function tabHandler(e) {
-  let target = e.target;
-  let targetHref = target.hash;
+  let tabTarget = e.target.dataset.bsTarget;
 
-  addHistoryState(e.target, targetHref)
+  addHistoryState(e.target, tabTarget);
 }
 
 function addAccordionOrTabHistoryStates() {

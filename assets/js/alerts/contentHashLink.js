@@ -51,8 +51,8 @@ function findContentTarget(hash) {
 }
 
 function checkForMatchingTabOrAccordion(hash, Collapse) {
-  if ( document.querySelector(`.nav-tabs a[href="${hash}"]`) ) {  // Looks for a matching BS4 tab element
-    const tab = document.querySelector(`.nav-tabs a[href="${hash}"]`);
+  if ( document.querySelector(`.nav-tabs [data-bs-target="${hash}"]`) ) {  // Looks for a matching BS4 tab element
+    const tab = document.querySelector(`.nav-tabs [data-bs-target="${hash}"]`);
     const bsTab = new Tab(tab);
 
     tab.addEventListener('shown.bs.tab', _e => {
