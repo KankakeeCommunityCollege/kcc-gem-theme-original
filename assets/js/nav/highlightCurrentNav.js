@@ -1,15 +1,17 @@
 // Custom Vanilla JS to highlight the user's current location in the navigation bar and the sub-nav navigation bar
-function setActive(link) {
+function setActive(link, ariaCurrentValue) {
   const li = link.parentNode;
 
   li.classList.add('active');
-  link.insertAdjacentHTML('beforeend', ' <span class="visually-hidden">(current)</span>');
+  // link.insertAdjacentHTML('beforeend', ' <span class="visually-hidden">(current)</span>');
+  link.setAttribute('aria-current', ariaCurrentValue);
 }
 
-function checkNavLinks(navList) {
+function checkNavLinks(navList, isSubNav) {
   const pathname = window.location.pathname;
   const locationIsContactHash = window.location.hash === '#contact';
   const locationIsHome = window.location.pathname === '/';
+  const ariaCurrentValue = (isSubNav) ? 'page' : 'true';
 
   [...navList].forEach(item => {
     const link = item.querySelector('a');
@@ -19,11 +21,11 @@ function checkNavLinks(navList) {
 
     if (locationIsHome || locationIsContactHash) {
       if (linkIsHome) {
-        setActive(link);
+        setActive(link, ariaCurrentValue);
       }
     } else {
       if (linkIsMatch && !linkIsHome) {
-        setActive(link);
+        setActive(link, ariaCurrentValue);
       }
     }
   });
@@ -35,10 +37,10 @@ function highlightNav() {
   if (document.getElementById('subNavNav')) {
     const subNavList = document.querySelectorAll('.js-sub-nav-item');
 
-    checkNavLinks(subNavList);
+    checkNavLinks(subNavList, true);
   }
 
-  checkNavLinks(navList);
+  checkNavLinks(navList, false);
 }
 
 export default highlightNav;
