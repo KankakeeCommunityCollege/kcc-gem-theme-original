@@ -24,6 +24,10 @@
   border-color: $grey-5 $grey-5 $white;
 }
 
+.nav-tabs .nav-link:not(.active) {
+  color: #0056d5;
+}
+
 .navbar-brand {
   margin-right: 0;
 }
