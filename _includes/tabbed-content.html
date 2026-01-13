@@ -3,7 +3,12 @@
     <a href="cloudcannon:collections/_tabs/" class="btn btn-success editor-button">Edit Tabs Collection</a>
   </div>
 </div>
-<ul class="nav nav-tabs navTabs" id="{{ page.title | replace: ' ', '-' | downcase }}" role="tablist">
+{% if include.alternate_tab_id %}
+  {% assign main_id = include.alternate_tab_id %}
+{% else %}
+  {% assign main_id = page.title | replace: ' ', '-' | downcase %}
+{% endif %}
+<ul class="nav nav-tabs navTabs" id="{{ main_id }}" role="tablist">
   {% assign page_title = page.title %}
   {% assign tab_collection = site.tabs | where: "tabs_page", page_title | sort: "order" %}
   {% for tab in tab_collection %}
@@ -13,7 +18,7 @@
   </li>
   {% endfor %}
 </ul>
-<div class="tab-content mt-3 px-1" id="{{ page.title | replace: ' ', '-' | downcase }}-content">
+<div class="tab-content mt-3 px-1" id="{{ main_id }}-content">
   {% for tab in tab_collection %}
   {% assign tab_id = tab.name | downcase | remove: '-' | replace: '&', 'and' | replace: ' ', '-' | remove: "'" | replace: "/", "-" | remove: '’' | remove: '0' | remove: '1' | remove: '2' | remove: '3' | remove: '4' | remove: '5' | remove: '6' | remove: '7' | remove: '8' | remove: '9' | remove: '?' | remove: '!' | remove: '#' | remove: '$'  | remove: '.' | remove: ',' | remove: '(' | remove: ')' | remove: '®' | remove: '©' %}
   <div class="tab-pane fade links__offset{% if forloop.first == true %} show active{% endif %}" id="{{ tab_id }}" role="tabpanel" aria-labelledby="{{ tab_id }}-label" tabindex="0">

@@ -1,3 +1,5 @@
+const accordionId = 'accordion';
+const tabsSelector = '.navTabs';
 
 function addHistoryState(target, hashTarget) {
   let url = new URL(window.location);
@@ -29,12 +31,12 @@ function tabHandler(e) {
 
 function addAccordionOrTabHistoryStates() {
   if (document.getElementById('accordion')) {
-    const accordion = document.getElementById('accordion');
+    const accordion = document.getElementById(accordionId);
 
     accordion.addEventListener('click', accordionHandler);
   }
   if (document.querySelector('.navTabs')) {
-    const tabs = document.querySelector('.navTabs');
+    const tabs = document.querySelector(tabsSelector);
   
     tabs.addEventListener('click', tabHandler);
   }
