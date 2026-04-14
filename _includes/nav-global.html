@@ -21,6 +21,7 @@
     role="button"
     class="nav-global__search-toggle d-lg-none ms-auto btn btn-link"
     aria-label="Toggle Search"
+    aria-controls="searchCollapse"
   >
     <span
       id="searchImg"
@@ -31,7 +32,6 @@
   </button>
   <div
     id="searchCollapse"
-    aria-hidden="true"
     class="nav-global__gcse-wrapper nav-global__search-collapse ms-auto"
   >
     <gcse:searchbox-only resultsUrl="{{ page.baseurl }}search/"></gcse:searchbox-only>

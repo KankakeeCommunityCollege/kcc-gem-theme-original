@@ -31,7 +31,13 @@ window.addEventListener('load', async () => {
 
   import('../alerts/alerts').then(({ default: alerts }) => alerts(Collapse));
 
-  import('../nav/nav').then(({ default: nav }) => nav());
+  if (
+    document.getElementById('searchIcon') &&
+    document.getElementById('searchCollapse')
+  ) {
+    import('../nav/nav')
+      .then(({ default: nav }) => nav());
+  }
 
   if (document.querySelector('[data-bs-toggle="dropdown"]')) {
     // Dropdown does not need to be called to existing dropdown HTML markup work

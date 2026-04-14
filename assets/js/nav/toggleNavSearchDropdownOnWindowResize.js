@@ -1,4 +1,11 @@
 // Custom JS to Close the Navigation menu, if its open, & if the screen goes above 992px wide (Bootstrap 4 'lg' devices)
+const searchCollapse = document.getElementById('searchCollapse');
+const globalNav = document.getElementById('globalNav');
+const localNav = document.getElementById('mainNav');
+const searchIcon = document.getElementById('searchIcon');
+
+const collapsedNavMql = window.matchMedia('(min-width: 992px)');
+
 const searchCollapseVisibleClass = 'nav-global__search-collapse--visible'; // Class in the HTML when the search collapse is open/visible
 const globalNavSearchVisibleClass = 'nav-global__search-toggle';
 const localNavSearchVisibleClass = 'nav-local__search-toggle';
@@ -31,22 +38,25 @@ function checkSearchToggleIcon(searchIcon) {
   toggleSearchIconToX(searchIcon);
 }
 
-function windowResizeHandler() {
-  if ( window.innerWidth >= 992 ) {
-    const searchCollapseElement = document.getElementById('searchCollapse');
-    const globalNav = document.getElementById('globalNav');
-    const localNav = document.getElementById('mainNav');
-    const searchIcon = document.getElementById('searchIcon');
-
-    checkElementCollapseState(searchCollapseElement, searchCollapseVisibleClass);
+function checkViewportWidth(e) {
+  if (e.matches) {
+    // Fire "expanded" logic here
+    checkElementCollapseState(searchCollapse, searchCollapseVisibleClass);
     checkElementCollapseState(globalNav, globalNavSearchVisibleClass);
     checkElementCollapseState(localNav, localNavSearchVisibleClass);
     checkSearchToggleIcon(searchIcon);
+
+    searchCollapse.setAttribute('aria-hidden', 'false');
+    searchCollapse.removeAttribute('hidden');
+  } else {
+    searchCollapse.setAttribute('aria-hidden', 'true');
+    searchCollapse.setAttribute('hidden', ''); // Make sure the aria-hidden element and children are not focusable.
   }
 }
 
 function toggleSearchDropdownOnWindowResize() {
-  window.addEventListener('resize', windowResizeHandler);
+  checkViewportWidth(collapsedNavMql);
+  collapsedNavMql.addEventListener('change', checkViewportWidth);
 }
 
 export default toggleSearchDropdownOnWindowResize;
