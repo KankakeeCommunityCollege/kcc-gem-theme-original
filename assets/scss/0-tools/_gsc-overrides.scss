@@ -36,6 +36,10 @@
 #gsc-i-id1 {
   background: none !important; // Needed to remove the stupid "Enhanced by Google" text after 2026 GCS update
 }
+
+form.gsc-search-box {
+  max-width: unset !important; // Counteract the new GCS `max-width: 652px;` styling so that it fills the available space.
+}
 // END new styles added to counteract 2026 GCS update
 
 .nav-global__gcse-wrapper .gsc-search-button-v2 {
