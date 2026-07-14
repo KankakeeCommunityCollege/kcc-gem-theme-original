@@ -1,7 +1,11 @@
+// SCSS imports
 import '../../scss/kcc-theme.scss'; // Import scss file into webpack main entry-point for webpack compiled css
 
+// JS imports
 import Collapse from 'bootstrap/js/dist/collapse';
 
+// Variables needed for orchestrating other modules
+const searchPageRegexp = /^\/search\/?$/;
 // function loadModule(...theArgs) {
 //   const len = theArgs.length;
 //   let module, defaultFn, path;
@@ -12,7 +16,7 @@ import Collapse from 'bootstrap/js/dist/collapse';
 //   return import(`${path}${module}.js`).then(({ default: defaultFn }) => defaultFn() );
 // }
 
-window.addEventListener('load', async () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
   if (document.querySelector('.hero-slider__slider')) {
     import('./wrapPowerText')
@@ -21,12 +25,6 @@ window.addEventListener('load', async () => {
         import('./sliders')
           .then(({ default: initSliders }) => initSliders())
       })
-    // import('./sliders')
-    //   .then(({ default: initSliders }) => initSliders())
-    //   .then(() => {
-    //     import('./wrapPowerText')
-    //       .then(({ default: wrapPowerText }) => wrapPowerText())
-    //   })
   }
 
   import('../alerts/alerts').then(({ default: alerts }) => alerts(Collapse));
@@ -70,6 +68,25 @@ window.addEventListener('load', async () => {
     // This import enables modals in pages with modal HTML markup
     const { default: Modal } = await import('bootstrap/js/dist/modal');
   }
+
+  // Fix WCAG violation in Google Programmable Search where results have
+  //  a thumbnail image wrapped in a link which doesn't have meaningful alt (that becomes) link text
+  //  and doesn't provide any visual indication of tabbing to them
+  if (document.getElementById('searchResultsWrapper')) {
+    const { default: searchResultsWCAGFix } = await import('./searchResultsWCAGFix');
+
+    searchResultsWCAGFix();
+  }
+
+  if (searchPageRegexp.test(window.location.pathname)) {
+    // Fix needed so that nav skip link doesn't interfere with site search page
+    const { default: searchPageJumpLinkFix } = await import('./searchPageJumpLinkFix');
+
+    searchPageJumpLinkFix();
+
+    import('../../scss/searchPageOverrides.scss')
+        .catch(err => console.error(`Error loading searchPageOverrides.scss \n${err}`, err));
+    }
 
   // loadModule('alerts','./').then(() => { // Get the campus alerts message & build it out
   //   loadModule('addClassToOpenNavbar', './');

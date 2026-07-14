@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkkcc_gem_theme=self.webpackChunkkcc_gem_theme||[]).push([[3],{6003:function(e,c){const n=document.querySelectorAll(".hero-slider__slider--slide-heading"),s=/\*\*([^\*]+)\*\*/g;c.default=function(){[...n].forEach(e=>{e.innerHTML=e.innerHTML.replace(s,'<span class="typography__power-text">$1</span>')})}}}]);

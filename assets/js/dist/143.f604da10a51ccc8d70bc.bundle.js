@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkkcc_gem_theme=self.webpackChunkkcc_gem_theme||[]).push([[143],{6143:function(t,e){e.default=function(){[...document.querySelectorAll("img[data-src]")].forEach(t=>{t.setAttribute("src",t.getAttribute("data-src")),t.onload=function(){t.removeAttribute("data-src")}})}}}]);

@@ -3,55 +3,63 @@
 // © 2020 Kankakee Community College
 // =================================================== */
 import createAlertsHtml from './createAlertsHtml';
-import checkForPrefersReducedMotion from './checkForPrefersReducedMotion';
 
-const sheetKey = '1plXBiZY5pVbhNT-mszxEuqCl4zy8wMnz9gXXbbT_yLs'; // Corresponds to the ID of the Google Sheet
-const sheetTab = 'Alerts'; // Corresponds to the tab of workbook: either  'Alerts' or 'Alerts Testing' unless you make a new one.
-// const devSheetTab = 'ALERTS_TESTING';
-const emergencyAlertsDiv = 'emergencyAlerts'
+const apiKey = 'AIzaSyCEBsbXfFcdbkASlg-PodD1rT_Fe3Nw62A';
 const sheetParams = {
-  spreadsheetId: sheetKey,
-  range: sheetTab
-  // range: devSheetTab
-};  // Configures the Object used for `sheets.spreadsheets.values.get()` parameters
-const apiParams = { // This is configuration for API call with spreadsheets that are setup as readonly
-  'apiKey': 'AIzaSyCEBsbXfFcdbkASlg-PodD1rT_Fe3Nw62A',
-  'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/sheets/v4/rest']
+  spreadsheetId: '1pqYRAhZvOHB52KqttV_d5P8qWvh9j8pPR15MCoGjMK0',
+  range: 'Alerts Testing'
 };
-const pageHasAccordionOrTabs = (document.querySelector('#accordion') || document.querySelector('.navTabs')) ? true : false;
 
-async function loadModule(module) {
-  const { default: module_func } = await import(`./${module}`);
+const pageHasAccordionOrTabs = (document.querySelector('#accordion') || document.querySelector('.navTabs'));
 
-  return module_func();
+function importHashLinkModule(Collapse) {
+  import('./contentHashLink')
+    .then(({ default: contentHashLink }) => contentHashLink(Collapse));
+}
+
+async function fetchSheetData(spreadsheetId, range, apiKey) {
+  // Use encodeURIComponent to handle spaces and '!' in the range string
+  const encodedRange = encodeURIComponent(range);
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodedRange}?key=${apiKey}`;
+
+  try {
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(`Google Sheets API Error: ${error.error.message}`);
+    }
+
+    const data = await response.json();
+    
+    // Google returns an empty object if the range is empty; 
+    // we default to an empty array for consistency.
+    return data.values || [];
+  } catch (err) {
+    console.error("Failed to fetch sheet data:", err);
+    throw err;
+  }
 }
 
 export default function alerts(Collapse) {
-  checkForPrefersReducedMotion();
-
-  if (!document.getElementById(emergencyAlertsDiv)) {
-    if (pageHasAccordionOrTabs) {
-      return import('./contentHashLink').then(({default: contentHashLink}) => contentHashLink(Collapse));
-    }
-  }
-
-  new Promise((resolve, reject) => { // First build the alert, whether by cache or API call
-    gapi.load('client', () => {
-      gapi.client.init(apiParams).then(() => {
-        return gapi.client.sheets.spreadsheets.values.get(sheetParams);
-      }).then(response => {
-        createAlertsHtml(response) // Promise is resolved after HTML alert is built
-        resolve();
-      }, err => {
-        console.error("Error trying to fetch the alert from gapi:", err);
+  if (!document.getElementById('emergencyAlerts') && pageHasAccordionOrTabs) {
+    // Handle page with no emergency alerts
+    importHashLinkModule(Collapse);
+  } else {
+    // Handle pages with alerts
+    // const response = await fetchSheetData(sheetParams.spreadsheetId, sheetParams.range, apiKey);
+    fetchSheetData(sheetParams.spreadsheetId, sheetParams.range, apiKey)
+      .then(response => {
+        createAlertsHtml(response);
+        if (pageHasAccordionOrTabs) {
+          importHashLinkModule(Collapse);
+        }
       })
-    });
-
-  }).then(() => {
-    window.setTimeout(() => {
-      if (pageHasAccordionOrTabs) {
-        import('./contentHashLink').then(({default: contentHashLink}) => contentHashLink(Collapse));
-      }
-    }, 100)
-  }) // Run accordion/tab JS, which includes a `scrollTo()`, after alert has painted
+      .catch(error => {
+        console.error("Error received:", error.message);
+        if (pageHasAccordionOrTabs) {
+          importHashLinkModule(Collapse);
+        }
+      })
+  }
 }
