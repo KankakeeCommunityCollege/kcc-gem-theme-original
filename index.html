@@ -47,94 +47,82 @@ cards:
     thumb_alt_text: 'Placeholder image.'
 ---
 
-<main id="content">
-  <div class="container background__color--tan">
-    {% include hero-slider.html %}
-  </div>
-  {% include card-section.html %}
-  <div class="container">
-    <div class="row">
-      <div class="col margins__col--top section__heading-underline--transparent">
-        <h3 class="typography__section--heading margins__heading--btm">Announcements</h3>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <h3 class="typography__h3">Example Anouncement Title</h3>
-        <p>Example anouncement text.</p>
-      </div>
+<div class="container background__color--tan">
+  {% include hero-slider.html %}
+</div>
+{% include card-section.html %}
+<div class="container">
+  <div class="row">
+    <div class="col margins__col--top section__heading-underline--transparent">
+      <h3 class="typography__section--heading margins__heading--btm">Announcements</h3>
     </div>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <br>
-        <h2 class="typography__h2">Welcome to the KCC gem based theme project!</h2>
-        <hr>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col margins__col--top home__col--heading-underline">
-        <h3 class="typography__section--heading margins__heading--btm">Section Heading</h3>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <h1 class="typography__nav-heading">Heading Level 1</h1>
-        <h2 class="typography__h2">Heading Level 2</h2>
-        <h3 class="typography__h3">Heading Level 3</h3>
-        <h4 class="typography__h4">Heading Level 4</h4>
-        <h5 class="typography__h5">Heading Level 5</h5>
-        <h6 class="typography__h6">Heading Level 6</h6>
-        <p>Paragraph text</p>
-        <ul>
-          <li>Unordered List</li>
-          <li>Unordered List</li>
-          <li>Unordered List</li>
-        </ul>
-        <ol>
-          <li>Ordered List</li>
-          <li>Ordered List</li>
-          <li>Ordered List</li>
-        </ol>
-        <table class="tables typography__tables">
-          <thead>
-            <tr>
-              <th>Table Heading</th>
-              <th>Table Heading</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Data</td>
-              <td>Data</td>
-            </tr>
-            <tr>
-              <td>Data</td>
-              <td>Data</td>
-            </tr>
-          </tbody>
-        </table>
-        <br>
-        View an example <a href="{{ page.baseurl }}landing-page/" class="btn btn-primary">Landing Page</a>
-        <hr>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <a href=""><img src="{{ page.baseurl }}assets/img/kcc-placeholder.png" data-src="{{ page.baseurl }}assets/img/itransfer.png" alt="Some alt text." /></a>
-      </div>
+  <div class="row">
+    <div class="col">
+      <h3 class="typography__h3">Example Anouncement Title</h3>
+      <p>Example anouncement text.</p>
     </div>
   </div>
-  {% comment %}{% include contacts.html %}{% endcomment %}
-</main>
-
-<section class="mt-5">
-  <div class="container">
-    <div class="row">
-      <div class="col">
-
-      </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <br>
+      <h2 class="typography__h2">Welcome to the KCC gem based theme project!</h2>
+      <hr>
     </div>
   </div>
-</section>
+  <div class="row">
+    <div class="col margins__col--top home__col--heading-underline">
+      <h3 id="section-heading" class="typography__section--heading margins__heading--btm">Section Heading</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h1 class="typography__h1">Heading Level 1</h1>
+      <h2 class="typography__h2">Heading Level 2</h2>
+      <h3 class="typography__h3">Heading Level 3</h3>
+      <h4 class="typography__h4">Heading Level 4</h4>
+      <h5 class="typography__h5">Heading Level 5</h5>
+      <h6 class="typography__h6">Heading Level 6</h6>
+      <p>Paragraph text</p>
+      <ul>
+        <li>Unordered List</li>
+        <li>Unordered List</li>
+        <li>Unordered List</li>
+      </ul>
+      <ol>
+        <li>Ordered List</li>
+        <li>Ordered List</li>
+        <li>Ordered List</li>
+      </ol>
+      <table class="tables typography__tables">
+        <thead>
+          <tr>
+            <th>Table Heading</th>
+            <th>Table Heading</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Data</td>
+            <td>Data</td>
+          </tr>
+          <tr>
+            <td>Data</td>
+            <td>Data</td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      View an example <a href="{{ page.baseurl }}landing-page/" class="btn btn-primary">Landing Page</a>
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <a href=""><img src="{{ page.baseurl }}assets/img/kcc-placeholder.png" data-src="{{ page.baseurl }}assets/img/itransfer.png" alt="Some alt text." /></a>
+    </div>
+  </div>
+</div>
+{% comment %}{% include contacts.html %}{% endcomment %}
