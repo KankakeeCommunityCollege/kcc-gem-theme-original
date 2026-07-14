@@ -3,3 +3,8 @@
 html {
   background-color: $color-page-background;
 }
+
+html {
+  /* Offset so that hash-links can are not obscured by fixed navbars */
+  scroll-padding-top: 140px;
+}
