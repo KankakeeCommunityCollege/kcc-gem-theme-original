@@ -7,7 +7,7 @@ import createAlertsHtml from './createAlertsHtml';
 const apiKey = 'AIzaSyCEBsbXfFcdbkASlg-PodD1rT_Fe3Nw62A';
 const sheetParams = {
   spreadsheetId: '1pqYRAhZvOHB52KqttV_d5P8qWvh9j8pPR15MCoGjMK0',
-  range: 'Alerts Testing'
+  range: 'Alerts'
 };
 
 const pageHasAccordionOrTabs = (document.querySelector('#accordion') || document.querySelector('.navTabs'));
