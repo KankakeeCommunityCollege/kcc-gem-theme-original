@@ -85,8 +85,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     searchPageJumpLinkFix();
 
     import('../../scss/searchPageOverrides.scss')
-        .catch(err => console.error(`Error loading searchPageOverrides.scss \n${err}`, err));
-    }
+      .catch(err => console.error(`Error loading searchPageOverrides.scss \n${err}`, err));
+  }
+
+  if (document.querySelector('main a')) {
+    import('./accessibleExternalLinks')
+      .then(({ default: accessibleExternalLinks }) => accessibleExternalLinks())
+      .catch(err => console.error('Error importing "accessibleExternalLinks" module: ', err));
+  }
 
   // loadModule('alerts','./').then(() => { // Get the campus alerts message & build it out
   //   loadModule('addClassToOpenNavbar', './');

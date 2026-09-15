@@ -110,3 +110,19 @@
   top: 2px; // Leave room for outline when focused
   z-index: 2000;
 }
+
+// .links__external is used in the theme JS file `/assets/js/src/accessibleExternalLinks.js`.
+// The JS finds external links and applies the appropriate screen reader hints + an external icon.
+// This is a highly flexible way of creating the launch icon so that it adapts to any font color or size automatically
+// This helper class replaces the old links__launch class that was manually applied to links back in the day.
+.links__external::after {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-left: 0.25em;
+  background-color: currentColor;
+  mask-image: url('/assets/img/external-icon.svg');
+  mask-size: cover;
+  vertical-align: middle;
+}
